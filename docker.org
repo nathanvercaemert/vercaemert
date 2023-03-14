@@ -1,0 +1,46 @@
+** docker image
+:PROPERTIES:
+:ID:       4d9932d7-0a57-4b29-b1a4-c66e052fe401
+:Tag-Amalgamation:
+:END:
+** build command
+:PROPERTIES:
+:ID:       2476a477-c617-47c2-9c65-332f2d5e0f52
+:Tag-Amalgamation:
+:END:
+docker build -t vercaemert .
+
+- -t means to tag the build with the name vercaemert
+** remove dangling images
+:PROPERTIES:
+:ID:       4ed6fc22-8b8d-4108-9e5a-a380a59d19a8
+:Tag-Amalgamation:
+:END:
+docker rmi $(docker images -f “dangling=true” -q)
+
+- building new image over other vercaemert image leaves dangling image
+** run container
+:PROPERTIES:
+:ID:       0457fcf0-92c6-4af4-9800-5da1112f0dc3
+:Tag-Amalgamation:
+:END:
+docker run -it -e "TERM=xterm-256color" --rm --name vercaemert vercaemert
+
+- -i attaches standard in (interactive)
+- -t pseudo-tty
+- --name names the container (image already had name)
+- --rm removes the container's file-system after shutdown
+*** with mount
+docker run -it -e "TERM=xterm-256color" --rm --name vercaemert --mount type=volume,src=dropbox,dst=/root/Dropbox --mount type=bind,src=C:\Users\nverc\Dropbox,dst=/root/Windows-Dropbox vercaemert
+** attach shell to running container
+:PROPERTIES:
+:ID:       d35e8307-99e6-4f68-ad2e-fafba33c36d4
+:Tag-Amalgamation:
+:END:
+docker exec -it vercaemert bash
+** remove all containers running or otherwise
+:PROPERTIES:
+:ID:       aaba2b0d-2e0d-437f-bee6-97327bbe3f4a
+:Tag-Amalgamation:
+:END:
+docker rm $(docker ps -aq)
