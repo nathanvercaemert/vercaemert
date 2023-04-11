@@ -60,3 +60,17 @@ RUN ln -s ./emacs/.emacs
 # (also because otherwise my config isn't loaded)
 RUN emacs --script .emacs
 
+# 573
+# x11
+RUN apt install -y x11-apps
+ENV DISPLAY 172.24.224.1:0
+# firefox
+RUN apt install -y libdbus-glib-1-2
+RUN apt install -y libx11-xcb1
+RUN apt install -y libegl1-mesa libgl1-mesa-glx libpci3
+RUN curl -L -o firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
+RUN tar xjf firefox.tar.bz2
+RUN mv firefox /opt/
+RUN ln -s /opt/firefox/firefox /usr/local/bin/firefox
+RUN rm firefox.tar.bz2
+
