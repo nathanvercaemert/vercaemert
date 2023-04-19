@@ -21,6 +21,8 @@ docker build -t vercaemert .k
 docker build -t vercaemert-qmk .
 *** 573
 docker build -t vercaemert-573 .
+*** 766
+docker build -t vercaemert-766 .
 ** remove dangling images
 :PROPERTIES:
 :ID:       4ed6fc22-8b8d-4108-9e5a-a380a59d19a8
@@ -46,6 +48,8 @@ docker run -it -e "TERM=xterm-256color" --rm --name vercaemert vercaemert
 docker run -it -e "TERM=xterm-256color" --rm --name vercaemert-qmk --mount type=volume,src=qmk-firmware-docker-volume,dst=/root/qmk-firmware-docker-volume --mount type=bind,src=C:\Users\nverc\OneDrive\Desktop\transfer,dst=/root/transfer vercaemert-qmk
 *** 573
 docker run -it -e "TERM=xterm-256color" --rm --name vercaemert-573 --mount type=volume,src=573-volume,dst=/root/573-volume vercaemert-573 
+*** 766
+docker run -it -e "TERM=xterm-256color" --rm --name vercaemert-766 --mount type=volume,src=766-volume,dst=/root/766-volume vercaemert-766 
 ** attach shell to running container
 :PROPERTIES:
 :ID:       d35e8307-99e6-4f68-ad2e-fafba33c36d4

@@ -13,8 +13,23 @@ RUN apt install -y git
 # curl
 RUN apt install -y curl
 
+# wget
+RUN apt install -y wget
+
+# spelling
+RUN apt install -y aspell ispell
+
 # ripgrep
 RUN apt install -y ripgrep
+
+# latex
+RUN apt update
+RUN apt install -y texlive-latex-base
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+RUN apt install -y texlive-latex-extra
+ENV DEBIAN_FRONTEND=
+ENV TZ=
 
 # change into home directory
 WORKDIR "/root"
@@ -47,24 +62,6 @@ RUN add-apt-repository ppa:kelleyk/emacs
 RUN apt update
 RUN apt install -y emacs28-nativecomp
 
-# spelling
-RUN apt install -y aspell ispell
-
-# latex
-RUN apt update
-RUN apt install -y texlive-latex-base
-ENV DEBIAN_FRONTEND=noninteractive
-ENV TZ=UTC
-RUN apt install -y texlive-latex-extra
-ENV DEBIAN_FRONTEND=
-ENV TZ=
-
-# pip
-RUN apt install -y python3-pip
-
-# matplotlib
-RUN pip install matplotlib
-
 # toggle to re-clone emacs configuration
 # RUN ls &&\
 #     git clone https://github.com/nathanvercaemert/emacs.git
@@ -78,8 +75,25 @@ RUN ln -s ./emacs/.emacs
 # (also because otherwise my config isn't loaded)
 RUN emacs --script .emacs
 
+# llvm
+RUN apt install -y ninja-build build-essential cmake
+RUN git clone https://github.com/llvm/llvm-project.git
+RUN mkdir llvm-project/build
+WORKDIR "/llvm-project/build"
+RUN cmake -G Ninja ../llvm -DLLVM_ENABLE_PROJECTS="mlir" -DCMAKE_BUILD_TYPE=Release
+RUN ninja install
+RUN apt remove -y build-essential cmake ninja-build
+WORKDIR "/root"
 
-# 573
-# x11
-RUN apt install -y x11-apps
-ENV DISPLAY 172.24.224.1:0
+# # graphical applications
+# # the ip address is found with ipconfig in windows
+# # (then add ":0" at the end)
+# # mobaxterm must be running on windows
+# RUN apt install -y x11-apps
+# ENV DISPLAY 172.24.224.1:0
+
+# # pip
+# RUN apt install -y python3-pip
+
+# # matplotlib
+# RUN pip install matplotlib
