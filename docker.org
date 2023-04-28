@@ -3,6 +3,8 @@ cd C:\Users\nverc\OneDrive\Desktop\vercaemert\
 cd C:\Users\nverc\OneDrive\Desktop\vercaemert\vercaemert-qmk\
 ** 573
 cd C:\Users\nverc\OneDrive\Desktop\vercaemert\vercaemert-573\
+** 766
+cd C:\Users\nverc\OneDrive\Desktop\vercaemert\vercaemert-766\
 * docker
 ** docker image
 :PROPERTIES:
@@ -23,6 +25,8 @@ docker build -t vercaemert-qmk .
 docker build -t vercaemert-573 .
 *** 766
 docker build -t vercaemert-766 .
+**** not-from-source
+docker build -t not-from-source .
 ** remove dangling images
 :PROPERTIES:
 :ID:       4ed6fc22-8b8d-4108-9e5a-a380a59d19a8

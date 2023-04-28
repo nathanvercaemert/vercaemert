@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 
-# refresh/upgrade packages
+# refresh packages
+RUN apt update # remove this
 RUN apt update
-RUN apt upgrade
 
 # bash
 RUN bash
@@ -15,6 +15,9 @@ RUN apt install -y curl
 
 # wget
 RUN apt install -y wget
+
+# build essential
+RUN apt install -y build-essential
 
 # spelling
 RUN apt install -y aspell ispell
@@ -42,13 +45,12 @@ WORKDIR "/root"
 # homebrew
 # dependency for homebrew
 RUN apt update
-RUN apt install -y build-essential
 # homebrew installation (redirect at end of command to skip prompt)
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" </dev/null
 # mutagen installation
 RUN /home/linuxbrew/.linuxbrew/bin/brew install mutagen-io/mutagen/mutagen
 # remove dependencies
-RUN apt remove -y build-essential
+# RUN apt remove -y build-essential
 
 # *****
 # *****
@@ -75,15 +77,20 @@ RUN ln -s ./emacs/.emacs
 # (also because otherwise my config isn't loaded)
 RUN emacs --script .emacs
 
-# llvm
-RUN apt install -y ninja-build build-essential cmake
-RUN git clone https://github.com/llvm/llvm-project.git
-RUN mkdir llvm-project/build
-WORKDIR "/llvm-project/build"
-RUN cmake -G Ninja ../llvm -DLLVM_ENABLE_PROJECTS="mlir" -DCMAKE_BUILD_TYPE=Release
-RUN ninja install
-RUN apt remove -y build-essential cmake ninja-build
-WORKDIR "/root"
+# 766
+RUN apt update
+RUN apt install -y clang libclang-dev
+
+# # llvm
+# RUN apt install -y ninja-build cmake
+# RUN git clone https://github.com/llvm/llvm-project.git
+# RUN mkdir llvm-project/build
+# WORKDIR "/root/llvm-project"
+# RUN cmake -B ./build -G Ninja ./llvm -DLLVM_ENABLE_PROJECTS="mlir;clang" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" -DCMAKE_BUILD_TYPE=Release
+# WORKDIR "/root/llvm-project/build"
+# RUN ninja -j 2 install
+# # maybe can remove these things?
+# WORKDIR "/root"
 
 # # graphical applications
 # # the ip address is found with ipconfig in windows
