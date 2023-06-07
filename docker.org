@@ -1,10 +1,5 @@
 * directory
-cd C:\Users\nverc\OneDrive\Desktop\vercaemert\
-cd C:\Users\nverc\OneDrive\Desktop\vercaemert\vercaemert-qmk\
-** 573
-cd C:\Users\nverc\OneDrive\Desktop\vercaemert\vercaemert-573\
-** 766
-cd C:\Users\nverc\OneDrive\Desktop\vercaemert\vercaemert-766\
+cd C:\Users\nverc\Dropbox\repositories\vercaemert
 * docker
 ** docker image
 :PROPERTIES:
@@ -16,17 +11,9 @@ cd C:\Users\nverc\OneDrive\Desktop\vercaemert\vercaemert-766\
 :ID:       2476a477-c617-47c2-9c65-332f2d5e0f52
 :Tag-Amalgamation:
 :END:
-docker build -t vercaemert .k
-
 - -t means to tag the build with the name vercaemert
-*** vercaemert-qmk
-docker build -t vercaemert-qmk .
-*** 573
-docker build -t vercaemert-573 .
-*** 766
-docker build -t vercaemert-766 .
-**** not-from-source
-docker build -t not-from-source .
+  
+docker build -t vercaemert .
 ** remove dangling images
 :PROPERTIES:
 :ID:       4ed6fc22-8b8d-4108-9e5a-a380a59d19a8
@@ -40,20 +27,12 @@ docker rmi $(docker images -f “dangling=true” -q)
 :ID:       0457fcf0-92c6-4af4-9800-5da1112f0dc3
 :Tag-Amalgamation:
 :END:
-docker run -it -e "TERM=xterm-256color" --rm --name vercaemert vercaemert
-
 - -i attaches standard in (interactive)
 - -t pseudo-tty
 - --name names the container (image already had name)
 - --rm removes the container's file-system after shutdown
-*** with mount
 
-**** vercaemert-qmk
-docker run -it -e "TERM=xterm-256color" --rm --name vercaemert-qmk --mount type=volume,src=qmk-firmware-docker-volume,dst=/root/qmk-firmware-docker-volume --mount type=bind,src=C:\Users\nverc\OneDrive\Desktop\transfer,dst=/root/transfer vercaemert-qmk
-*** 573
-docker run -it -e "TERM=xterm-256color" --rm --name vercaemert-573 --mount type=volume,src=573-volume,dst=/root/573-volume vercaemert-573 
-*** 766
-docker run -it -e "TERM=xterm-256color" --rm --name vercaemert-766 --mount type=volume,src=766-volume,dst=/root/766-volume vercaemert-766 
+docker run -it -e "TERM=xterm-256color" --rm --name vercaemert --mount type=volume,src=qmk-firmware-docker-volume,dst=/root/qmk-firmware-docker-volume --mount type=bind,src=C:\Users\nverc\OneDrive\Desktop\transfer,dst=/root/transfer vercaemert
 ** attach shell to running container
 :PROPERTIES:
 :ID:       d35e8307-99e6-4f68-ad2e-fafba33c36d4

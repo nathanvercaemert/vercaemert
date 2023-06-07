@@ -2,7 +2,7 @@ FROM ubuntu:22.04
 
 # refresh/upgrade packages
 RUN apt update
-RUN apt upgrade
+RUN apt upgrade -y
 
 # bash
 RUN bash
@@ -60,3 +60,14 @@ RUN ln -s ./emacs/.emacs
 # (also because otherwise my config isn't loaded)
 RUN emacs --script .emacs
 
+# ***
+# ***
+# qmk
+# ***
+# ***
+RUN apt install -y python3-pip
+RUN python3 -m pip install qmk
+RUN qmk setup
+RUN qmk config user.keyboard=ergodox_ez
+RUN qmk config user.keymap=nathanvercaemert
+RUN apt install -y gcc-avr avr-libc cmake build-essential
