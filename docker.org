@@ -14,6 +14,8 @@ cd C:\Users\nverc\Dropbox\repositories\vercaemert
 - -t means to tag the build with the name vercaemert
   
 docker build -t vercaemert .
+*** no cache
+docker build --no-cache -t vercaemert .
 ** remove dangling images
 :PROPERTIES:
 :ID:       4ed6fc22-8b8d-4108-9e5a-a380a59d19a8
@@ -44,9 +46,29 @@ docker exec -it vercaemert bash
 :ID:       aaba2b0d-2e0d-437f-bee6-97327bbe3f4a
 :Tag-Amalgamation:
 :END:
-docker rm $(docker ps -aq)
+docker rm $(docker ps -QA)
 * mutagen
 /home/linuxbrew/.linuxbrew/bin/mutagen sync monitor
-** qmk firmware
-/home/linuxbrew/.linuxbrew/bin/mutagen sync create ./qmk_firmare-volume/ ./qmk_firmware-bind
+** transfer
+from /root
 
+/home/linuxbrew/.linuxbrew/bin/mutagen sync create transfer transfer_linux
+* todo list
+** ahk
+*** TODO program
+*** TODO repo
+** alacritty
+*** TODO program
+*** TODO repo
+** wsl
+*** TODO program
+- probably best to install via powershell
+*** TODO version (wsl1)
+*** TODO setup
+- follow dockerfile
+** docker
+*** TODO program
+*** TODO repo
+** "initial" email folder until workflow organized/established
+that way I can just check this folder if I'm missing something after workflow established
+** zoom overlays dealing with ahk

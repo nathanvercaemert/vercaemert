@@ -4,14 +4,23 @@ FROM ubuntu:22.04
 RUN apt update
 RUN apt upgrade -y
 
-# bash
-RUN bash
-
 # git
 RUN apt install -y git
 
 # curl
 RUN apt install -y curl
+
+# wget
+RUN apt install -y wget
+
+# build-essential
+RUN apt install -y build-essential
+
+# cmake
+RUN apt install -y cmake
+
+# python3-pip
+RUN apt install -y python3-pip
 
 # ripgrep
 RUN apt install -y ripgrep
@@ -24,16 +33,21 @@ WORKDIR "/root"
 # mutagen
 # #######
 # #######
-# homebrew
-# dependency for homebrew
-RUN apt update
-RUN apt install -y build-essential
 # homebrew installation (redirect at end of command to skip prompt)
 RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" </dev/null
 # mutagen installation
 RUN /home/linuxbrew/.linuxbrew/bin/brew install mutagen-io/mutagen/mutagen
-# remove dependencies
-RUN apt remove -y build-essential
+
+# ***
+# ***
+# qmk
+# ***
+# ***
+RUN python3 -m pip install qmk
+RUN qmk setup
+RUN qmk config user.keyboard=ergodox_ez
+RUN qmk config user.keymap=nathanvercaemert
+RUN apt install -y gcc-avr avr-libc
 
 # *****
 # *****
@@ -60,14 +74,9 @@ RUN ln -s ./emacs/.emacs
 # (also because otherwise my config isn't loaded)
 RUN emacs --script .emacs
 
-# ***
-# ***
-# qmk
-# ***
-# ***
-RUN apt install -y python3-pip
-RUN python3 -m pip install qmk
-RUN qmk setup
-RUN qmk config user.keyboard=ergodox_ez
-RUN qmk config user.keymap=nathanvercaemert
-RUN apt install -y gcc-avr avr-libc cmake build-essential
+# git configuration
+RUN git config --global user.name "Nathan Vercaemert"
+RUN git config --global user.email nathanvercaemert@gmail.com
+RUN git config --global core.editor emacs
+RUN git clone https://github.com/nathanvercaemert/git.git
+RUN git config --global core.excludesfile /root/git/.gitignore_global
