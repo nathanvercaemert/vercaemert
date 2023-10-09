@@ -40,7 +40,7 @@ docker run -it -e "TERM=xterm-256color" --rm --name vercaemert --mount type=volu
 :ID:       d35e8307-99e6-4f68-ad2e-fafba33c36d4
 :Tag-Amalgamation:
 :END:
-docker exec -it vercaemert bash
+docker exec -it vercaemert bashe
 ** remove all containers running or otherwise
 :PROPERTIES:
 :ID:       aaba2b0d-2e0d-437f-bee6-97327bbe3f4a
